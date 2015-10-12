@@ -13,7 +13,7 @@ import Nimble
 
 class BasicTypesTestsToJSON: XCTestCase {
 
-    let mapper = Mapper<BasicTypes>()
+    let mapper = Mapper<BasicTypes>(mappingContext:1)
 
     override func setUp() {
         super.setUp()
@@ -34,7 +34,7 @@ class BasicTypesTestsToJSON: XCTestCase {
 		object.boolOptional = value
 		object.boolImplicityUnwrapped = value
 		
-		let JSONString = Mapper().toJSONString(object, prettyPrint: true)
+		let JSONString = Mapper(mappingContext:1).toJSONString(object, prettyPrint: true)
 		let mappedObject = mapper.map(JSONString!)
 
 		expect(mappedObject).notTo(beNil())
@@ -50,7 +50,7 @@ class BasicTypesTestsToJSON: XCTestCase {
 		object.intOptional = value
 		object.intImplicityUnwrapped = value
 		
-		let JSONString = Mapper().toJSONString(object, prettyPrint: true)
+		let JSONString = Mapper(mappingContext:1).toJSONString(object, prettyPrint: true)
 		let mappedObject = mapper.map(JSONString!)
 
 		expect(mappedObject).notTo(beNil())
@@ -66,7 +66,7 @@ class BasicTypesTestsToJSON: XCTestCase {
 		object.doubleOptional = value
 		object.doubleImplicityUnwrapped = value
 		
-		let JSONString = Mapper().toJSONString(object, prettyPrint: true)
+		let JSONString = Mapper(mappingContext:1).toJSONString(object, prettyPrint: true)
 		let mappedObject = mapper.map(JSONString!)
 
 		expect(mappedObject).notTo(beNil())
@@ -82,7 +82,7 @@ class BasicTypesTestsToJSON: XCTestCase {
 		object.floatOptional = value
 		object.floatImplicityUnwrapped = value
 		
-		let JSONString = Mapper().toJSONString(object, prettyPrint: true)
+		let JSONString = Mapper(mappingContext:1).toJSONString(object, prettyPrint: true)
 		let mappedObject = mapper.map(JSONString!)
 
 		expect(mappedObject).notTo(beNil())
@@ -98,7 +98,7 @@ class BasicTypesTestsToJSON: XCTestCase {
 		object.stringOptional = value
 		object.stringImplicityUnwrapped = value
 		
-		let JSONString = Mapper().toJSONString(object, prettyPrint: true)
+		let JSONString = Mapper(mappingContext:1).toJSONString(object, prettyPrint: true)
 		let mappedObject = mapper.map(JSONString!)
 
 		expect(mappedObject).notTo(beNil())
@@ -114,7 +114,7 @@ class BasicTypesTestsToJSON: XCTestCase {
 		object.anyObjectOptional = value
 		object.anyObjectImplicitlyUnwrapped = value
 		
-		let JSONString = Mapper().toJSONString(object, prettyPrint: true)
+		let JSONString = Mapper(mappingContext:1).toJSONString(object, prettyPrint: true)
 		let mappedObject = mapper.map(JSONString!)
 
 		expect(mappedObject).notTo(beNil())
@@ -131,7 +131,7 @@ class BasicTypesTestsToJSON: XCTestCase {
 		object.arrayBoolOptional = []
 		object.arrayBoolImplicityUnwrapped = []
 		
-		let JSONString = Mapper().toJSONString(object, prettyPrint: true)
+		let JSONString = Mapper(mappingContext:1).toJSONString(object, prettyPrint: true)
 		let mappedObject = mapper.map(JSONString!)
 
 		expect(mappedObject).notTo(beNil())
@@ -147,7 +147,7 @@ class BasicTypesTestsToJSON: XCTestCase {
 		object.arrayBoolOptional = [value]
 		object.arrayBoolImplicityUnwrapped = [value]
 		
-		let JSONString = Mapper().toJSONString(object, prettyPrint: true)
+		let JSONString = Mapper(mappingContext:1).toJSONString(object, prettyPrint: true)
 		let mappedObject = mapper.map(JSONString!)
 
 		expect(mappedObject).notTo(beNil())
@@ -163,7 +163,7 @@ class BasicTypesTestsToJSON: XCTestCase {
 		object.arrayIntOptional = [value]
 		object.arrayIntImplicityUnwrapped = [value]
 		
-		let JSONString = Mapper().toJSONString(object, prettyPrint: true)
+		let JSONString = Mapper(mappingContext:1).toJSONString(object, prettyPrint: true)
 		let mappedObject = mapper.map(JSONString!)
 
 		expect(mappedObject).notTo(beNil())
@@ -179,7 +179,7 @@ class BasicTypesTestsToJSON: XCTestCase {
 		object.arrayDoubleOptional = [value]
 		object.arrayDoubleImplicityUnwrapped = [value]
 		
-		let JSONString = Mapper().toJSONString(object, prettyPrint: true)
+		let JSONString = Mapper(mappingContext:1).toJSONString(object, prettyPrint: true)
 		let mappedObject = mapper.map(JSONString!)
 
 		expect(mappedObject).notTo(beNil())
@@ -195,7 +195,7 @@ class BasicTypesTestsToJSON: XCTestCase {
 		object.arrayFloatOptional = [value]
 		object.arrayFloatImplicityUnwrapped = [value]
 		
-		let JSONString = Mapper().toJSONString(object, prettyPrint: true)
+		let JSONString = Mapper(mappingContext:1).toJSONString(object, prettyPrint: true)
 		let mappedObject = mapper.map(JSONString!)
 
 		expect(mappedObject).notTo(beNil())
@@ -211,7 +211,7 @@ class BasicTypesTestsToJSON: XCTestCase {
 		object.arrayStringOptional = [value]
 		object.arrayStringImplicityUnwrapped = [value]
 		
-		let JSONString = Mapper().toJSONString(object, prettyPrint: true)
+		let JSONString = Mapper(mappingContext:1).toJSONString(object, prettyPrint: true)
 		let mappedObject = mapper.map(JSONString!)
 
 		expect(mappedObject).notTo(beNil())
@@ -227,7 +227,7 @@ class BasicTypesTestsToJSON: XCTestCase {
 		object.arrayAnyObjectOptional = [value]
 		object.arrayAnyObjectImplicitlyUnwrapped = [value]
 		
-		let JSONString = Mapper().toJSONString(object, prettyPrint: true)
+		let JSONString = Mapper(mappingContext:1).toJSONString(object, prettyPrint: true)
 		let mappedObject = mapper.map(JSONString!)
 
 		expect(mappedObject).notTo(beNil())
@@ -244,7 +244,7 @@ class BasicTypesTestsToJSON: XCTestCase {
 		object.dictBoolOptional = [:]
 		object.dictBoolImplicityUnwrapped = [:]
 		
-		let JSONString = Mapper().toJSONString(object, prettyPrint: true)
+		let JSONString = Mapper(mappingContext:1).toJSONString(object, prettyPrint: true)
 		let mappedObject = mapper.map(JSONString!)
 		
 		expect(mappedObject).notTo(beNil())
@@ -261,7 +261,7 @@ class BasicTypesTestsToJSON: XCTestCase {
 		object.dictBoolOptional = [key:value]
 		object.dictBoolImplicityUnwrapped = [key:value]
 		
-		let JSONString = Mapper().toJSONString(object, prettyPrint: true)
+		let JSONString = Mapper(mappingContext:1).toJSONString(object, prettyPrint: true)
 		let mappedObject = mapper.map(JSONString!)
 
 		expect(mappedObject).notTo(beNil())
@@ -278,7 +278,7 @@ class BasicTypesTestsToJSON: XCTestCase {
 		object.dictIntOptional = [key:value]
 		object.dictIntImplicityUnwrapped = [key:value]
 		
-		let JSONString = Mapper().toJSONString(object, prettyPrint: true)
+		let JSONString = Mapper(mappingContext:1).toJSONString(object, prettyPrint: true)
 		let mappedObject = mapper.map(JSONString!)
 
 		expect(mappedObject).notTo(beNil())
@@ -295,7 +295,7 @@ class BasicTypesTestsToJSON: XCTestCase {
 		object.dictDoubleOptional = [key:value]
 		object.dictDoubleImplicityUnwrapped = [key:value]
 		
-		let JSONString = Mapper().toJSONString(object, prettyPrint: true)
+		let JSONString = Mapper(mappingContext:1).toJSONString(object, prettyPrint: true)
 		let mappedObject = mapper.map(JSONString!)
 
 		expect(mappedObject).notTo(beNil())
@@ -312,7 +312,7 @@ class BasicTypesTestsToJSON: XCTestCase {
 		object.dictFloatOptional = [key:value]
 		object.dictFloatImplicityUnwrapped = [key:value]
 		
-		let JSONString = Mapper().toJSONString(object, prettyPrint: true)
+		let JSONString = Mapper(mappingContext:1).toJSONString(object, prettyPrint: true)
 		let mappedObject = mapper.map(JSONString!)
 
 		expect(mappedObject).notTo(beNil())
@@ -329,7 +329,7 @@ class BasicTypesTestsToJSON: XCTestCase {
 		object.dictStringOptional = [key:value]
 		object.dictStringImplicityUnwrapped = [key:value]
 		
-		let JSONString = Mapper().toJSONString(object, prettyPrint: true)
+		let JSONString = Mapper(mappingContext:1).toJSONString(object, prettyPrint: true)
 		let mappedObject = mapper.map(JSONString!)
 
 		expect(mappedObject).notTo(beNil())
@@ -346,7 +346,7 @@ class BasicTypesTestsToJSON: XCTestCase {
 		object.dictAnyObjectOptional = [key:value]
 		object.dictAnyObjectImplicitlyUnwrapped = [key:value]
 		
-		let JSONString = Mapper().toJSONString(object, prettyPrint: true)
+		let JSONString = Mapper(mappingContext:1).toJSONString(object, prettyPrint: true)
 		let mappedObject = mapper.map(JSONString!)
 
 		expect(mappedObject).notTo(beNil())
@@ -362,7 +362,7 @@ class BasicTypesTestsToJSON: XCTestCase {
 		object.enumIntOptional = value
 		object.enumIntImplicitlyUnwrapped = value
 
-		let JSONString = Mapper().toJSONString(object, prettyPrint: true)
+		let JSONString = Mapper(mappingContext:1).toJSONString(object, prettyPrint: true)
 		let mappedObject = mapper.map(JSONString!)
 
 		expect(mappedObject).notTo(beNil())
@@ -378,7 +378,7 @@ class BasicTypesTestsToJSON: XCTestCase {
 		object.enumDoubleOptional = value
 		object.enumDoubleImplicitlyUnwrapped = value
 
-		let JSONString = Mapper().toJSONString(object, prettyPrint: true)
+		let JSONString = Mapper(mappingContext:1).toJSONString(object, prettyPrint: true)
 		let mappedObject = mapper.map(JSONString!)
 
 		expect(mappedObject).notTo(beNil())
@@ -394,7 +394,7 @@ class BasicTypesTestsToJSON: XCTestCase {
 		object.enumFloatOptional = value
 		object.enumFloatImplicitlyUnwrapped = value
 
-		let JSONString = Mapper().toJSONString(object, prettyPrint: true)
+		let JSONString = Mapper(mappingContext:1).toJSONString(object, prettyPrint: true)
 		let mappedObject = mapper.map(JSONString!)
 
 		expect(mappedObject).notTo(beNil())
@@ -410,7 +410,7 @@ class BasicTypesTestsToJSON: XCTestCase {
 		object.enumStringOptional = value
 		object.enumStringImplicitlyUnwrapped = value
 
-		let JSONString = Mapper().toJSONString(object, prettyPrint: true)
+		let JSONString = Mapper(mappingContext:1).toJSONString(object, prettyPrint: true)
 		let mappedObject = mapper.map(JSONString!)
 
 		expect(mappedObject).notTo(beNil())
@@ -426,7 +426,7 @@ class BasicTypesTestsToJSON: XCTestCase {
 		object.arrayEnumIntOptional = [value]
 		object.arrayEnumIntImplicitlyUnwrapped = [value]
 
-		let JSONString = Mapper().toJSONString(object, prettyPrint: true)
+		let JSONString = Mapper(mappingContext:1).toJSONString(object, prettyPrint: true)
 		let mappedObject = mapper.map(JSONString!)
 
 		expect(mappedObject).notTo(beNil())
@@ -443,7 +443,7 @@ class BasicTypesTestsToJSON: XCTestCase {
 		object.dictEnumIntOptional = [key: value]
 		object.dictEnumIntImplicitlyUnwrapped = [key: value]
 
-		let JSONString = Mapper().toJSONString(object, prettyPrint: true)
+		let JSONString = Mapper(mappingContext:1).toJSONString(object, prettyPrint: true)
 		let mappedObject = mapper.map(JSONString!)
 
 		expect(mappedObject).notTo(beNil())
@@ -460,7 +460,7 @@ class BasicTypesTestsToJSON: XCTestCase {
 		object.dictStringDouble = ["string": 1.2]
 		object.dictStringFloat = ["string": 1.3]
 		
-		let json = Mapper<TestCollectionOfPrimitives>().toJSON(object)
+		let json = Mapper<TestCollectionOfPrimitives>(mappingContext:1).toJSON(object)
 
 		expect(json["dictStringString"] as? [String:String]).notTo(beEmpty())
 		expect(json["dictStringBool"] as? [String:Bool]).notTo(beEmpty())

@@ -9,8 +9,9 @@
 import Foundation
 
 /// A class used for holding mapping data
-public final class Map {
+public final class Map<C> {
 	public let mappingType: MappingType
+	public let mappingContext: C
 	
 	var JSONDictionary: [String : AnyObject] = [:]
 	var currentValue: AnyObject?
@@ -20,9 +21,10 @@ public final class Map {
 	/// Counter for failing cases of deserializing values to `let` properties.
 	private var failedCount: Int = 0
 	
-	public init(mappingType: MappingType, JSONDictionary: [String : AnyObject]) {
+	public init(mappingType: MappingType, JSONDictionary: [String : AnyObject], mappingContext context: C) {
 		self.mappingType = mappingType
 		self.JSONDictionary = JSONDictionary
+		self.mappingContext = context
 	}
 	
 	/// Sets the current mapper value and key.

@@ -13,7 +13,7 @@ import Nimble
 
 class CustomTransformTests: XCTestCase {
 
-	let mapper = Mapper<Transforms>()
+	let mapper = Mapper<Transforms>(mappingContext:1)
 	
     override func setUp() {
         super.setUp()
@@ -141,15 +141,15 @@ class Transforms: Mappable {
 	var firstImageType: ImageType?
 	var secondImageType: ImageType?
 
-	init(){
+	required init(){
 		
 	}
 	
-	required init?(_ map: Map){
-		
+	static func get(map: Map<Int>) -> Self? {
+		return self.init()
 	}
 	
-	func mapping(map: Map) {
+	func mapping(map: Map<Int>) {
 		date				<- (map["date"], DateTransform())
 		dateOpt				<- (map["dateOpt"], DateTransform())
 		

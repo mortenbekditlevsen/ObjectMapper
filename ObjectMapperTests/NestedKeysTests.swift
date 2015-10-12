@@ -64,7 +64,7 @@ class NestedKeysTests: XCTestCase {
 			]
 		]
 
-		let mapper = Mapper<NestedKeys>()
+		let mapper = Mapper<NestedKeys>(mappingContext:1)
 
 		let value: NestedKeys! = mapper.map(JSON)
 		expect(value).notTo(beNil())
@@ -144,11 +144,15 @@ class NestedKeys: Mappable {
 	var objectArray: [Object] = []
 	var objectDict: [String: Object] = [:]
 
-	required init?(_ map: Map){
+	required init () {
 		
 	}
+	
+	static func get(map: Map<Int>) -> Self? {
+		return self.init()
+	}
 
-	func mapping(map: Map) {
+	func mapping(map: Map<Int>) {
 		nonNestedString <- map["non.nested.key", nested: false]
 		
 		int64	<- map["nested.int64"]
@@ -187,11 +191,11 @@ class NestedKeys: Mappable {
 class Object: Mappable, Equatable {
 	var value: Int = Int.min
 	
-	required init?(_ map: Map){
-		
+	static func get(map: Map<Int>) -> Self? {
+		return nil
 	}
 	
-	func mapping(map: Map) {
+	func mapping(map: Map<Int>) {
 		value <- map["value"]
 	}
 }

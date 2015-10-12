@@ -17,7 +17,7 @@ infix operator <- {}
 // MARK:- Objects with Basic types
 
 /// Object of Basic type
-public func <- <T>(inout left: T, right: Map) {
+public func <- <T, C>(inout left: T, right: Map<C>) {
     if right.mappingType == MappingType.FromJSON {
         FromJSON.basicType(&left, object: right.value())
     } else {
@@ -26,7 +26,7 @@ public func <- <T>(inout left: T, right: Map) {
 }
 
 /// Optional object of basic type
-public func <- <T>(inout left: T?, right: Map) {
+public func <- <T, C>(inout left: T?, right: Map<C>) {
     if right.mappingType == MappingType.FromJSON {
         FromJSON.optionalBasicType(&left, object: right.value())
     } else {
@@ -35,7 +35,7 @@ public func <- <T>(inout left: T?, right: Map) {
 }
 
 /// Implicitly unwrapped optional object of basic type
-public func <- <T>(inout left: T!, right: Map) {
+public func <- <T, C>(inout left: T!, right: Map<C>) {
 	if right.mappingType == MappingType.FromJSON {
 		FromJSON.optionalBasicType(&left, object: right.value())
 	} else {
@@ -46,58 +46,58 @@ public func <- <T>(inout left: T!, right: Map) {
 // MARK:- Raw Representable types
 
 /// Object of Raw Representable type
-public func <- <T: RawRepresentable>(inout left: T, right: Map) {
+public func <- <T: RawRepresentable, C>(inout left: T, right: Map<C>) {
 	left <- (right, EnumTransform())
 }
 
 /// Optional Object of Raw Representable type
-public func <- <T: RawRepresentable>(inout left: T?, right: Map) {
+public func <- <T: RawRepresentable, C>(inout left: T?, right: Map<C>) {
 	left <- (right, EnumTransform())
 }
 
 /// Implicitly Unwrapped Optional Object of Raw Representable type
-public func <- <T: RawRepresentable>(inout left: T!, right: Map) {
+public func <- <T: RawRepresentable, C>(inout left: T!, right: Map<C>) {
 	left <- (right, EnumTransform())
 }
 
 // MARK:- Arrays of Raw Representable type
 
 /// Array of Raw Representable object
-public func <- <T: RawRepresentable>(inout left: [T], right: Map) {
+public func <- <T: RawRepresentable, C>(inout left: [T], right: Map<C>) {
 	left <- (right, EnumTransform())
 }
 
 /// Array of Raw Representable object
-public func <- <T: RawRepresentable>(inout left: [T]?, right: Map) {
+public func <- <T: RawRepresentable, C>(inout left: [T]?, right: Map<C>) {
 	left <- (right, EnumTransform())
 }
 
 /// Array of Raw Representable object
-public func <- <T: RawRepresentable>(inout left: [T]!, right: Map) {
+public func <- <T: RawRepresentable, C>(inout left: [T]!, right: Map<C>) {
 	left <- (right, EnumTransform())
 }
 
 // MARK:- Dictionaries of Raw Representable type
 
 /// Dictionary of Raw Representable object
-public func <- <T: RawRepresentable>(inout left: [String: T], right: Map) {
+public func <- <T: RawRepresentable, C>(inout left: [String: T], right: Map<C>) {
 	left <- (right, EnumTransform())
 }
 
 /// Dictionary of Raw Representable object
-public func <- <T: RawRepresentable>(inout left: [String: T]?, right: Map) {
+public func <- <T: RawRepresentable, C>(inout left: [String: T]?, right: Map<C>) {
 	left <- (right, EnumTransform())
 }
 
 /// Dictionary of Raw Representable object
-public func <- <T: RawRepresentable>(inout left: [String: T]!, right: Map) {
+public func <- <T: RawRepresentable, C>(inout left: [String: T]!, right: Map<C>) {
 	left <- (right, EnumTransform())
 }
 
 // MARK:- Transforms
 
 /// Object of Basic type with Transform
-public func <- <T, Transform: TransformType where Transform.Object == T>(inout left: T, right: (Map, Transform)) {
+public func <- <T, C, Transform: TransformType where Transform.Object == T>(inout left: T, right: (Map<C>, Transform)) {
     if right.0.mappingType == MappingType.FromJSON {
         let value: T? = right.1.transformFromJSON(right.0.currentValue)
         FromJSON.basicType(&left, object: value)
@@ -108,7 +108,7 @@ public func <- <T, Transform: TransformType where Transform.Object == T>(inout l
 }
 
 /// Optional object of basic type with Transform
-public func <- <T, Transform: TransformType where Transform.Object == T>(inout left: T?, right: (Map, Transform)) {
+public func <- <T, C, Transform: TransformType where Transform.Object == T>(inout left: T?, right: (Map<C>, Transform)) {
     if right.0.mappingType == MappingType.FromJSON {
         let value: T? = right.1.transformFromJSON(right.0.currentValue)
         FromJSON.optionalBasicType(&left, object: value)
@@ -119,7 +119,7 @@ public func <- <T, Transform: TransformType where Transform.Object == T>(inout l
 }
 
 /// Implicitly unwrapped optional object of basic type with Transform
-public func <- <T, Transform: TransformType where Transform.Object == T>(inout left: T!, right: (Map, Transform)) {
+public func <- <T, C, Transform: TransformType where Transform.Object == T>(inout left: T!, right: (Map<C>, Transform)) {
 	if right.0.mappingType == MappingType.FromJSON {
 		let value: T? = right.1.transformFromJSON(right.0.currentValue)
 		FromJSON.optionalBasicType(&left, object: value)
@@ -130,7 +130,7 @@ public func <- <T, Transform: TransformType where Transform.Object == T>(inout l
 }
 
 /// Array of Basic type with Transform
-public func <- <T: TransformType>(inout left: [T.Object], right: (Map, T)) {
+public func <- <T: TransformType, C>(inout left: [T.Object], right: (Map<C>, T)) {
 	let (map, transform) = right
 	if map.mappingType == MappingType.FromJSON {
 		let values = fromJSONArrayWithTransform(map.currentValue, transform: transform)
@@ -142,7 +142,7 @@ public func <- <T: TransformType>(inout left: [T.Object], right: (Map, T)) {
 }
 
 /// Optional array of Basic type with Transform
-public func <- <T: TransformType>(inout left: [T.Object]?, right: (Map, T)) {
+public func <- <T: TransformType, C>(inout left: [T.Object]?, right: (Map<C>, T)) {
 	let (map, transform) = right
 	if map.mappingType == MappingType.FromJSON {
 		let values = fromJSONArrayWithTransform(map.currentValue, transform: transform)
@@ -154,7 +154,7 @@ public func <- <T: TransformType>(inout left: [T.Object]?, right: (Map, T)) {
 }
 
 /// Implicitly unwrapped optional array of Basic type with Transform
-public func <- <T: TransformType>(inout left: [T.Object]!, right: (Map, T)) {
+public func <- <T: TransformType, C>(inout left: [T.Object]!, right: (Map<C>, T)) {
 	let (map, transform) = right
 	if map.mappingType == MappingType.FromJSON {
 		let values = fromJSONArrayWithTransform(map.currentValue, transform: transform)
@@ -166,7 +166,7 @@ public func <- <T: TransformType>(inout left: [T.Object]!, right: (Map, T)) {
 }
 
 /// Dictionary of Basic type with Transform
-public func <- <T: TransformType>(inout left: [String: T.Object], right: (Map, T)) {
+public func <- <T: TransformType, C>(inout left: [String: T.Object], right: (Map<C>, T)) {
 	let (map, transform) = right
 	if map.mappingType == MappingType.FromJSON {
 		let values = fromJSONDictionaryWithTransform(map.currentValue, transform: transform)
@@ -178,7 +178,7 @@ public func <- <T: TransformType>(inout left: [String: T.Object], right: (Map, T
 }
 
 /// Optional dictionary of Basic type with Transform
-public func <- <T: TransformType>(inout left: [String: T.Object]?, right: (Map, T)) {
+public func <- <T: TransformType, C>(inout left: [String: T.Object]?, right: (Map<C>, T)) {
 	let (map, transform) = right
 	if map.mappingType == MappingType.FromJSON {
 		let values = fromJSONDictionaryWithTransform(map.currentValue, transform: transform)
@@ -190,7 +190,7 @@ public func <- <T: TransformType>(inout left: [String: T.Object]?, right: (Map, 
 }
 
 /// Implicitly unwrapped optional dictionary of Basic type with Transform
-public func <- <T: TransformType>(inout left: [String: T.Object]!, right: (Map, T)) {
+public func <- <T: TransformType, C>(inout left: [String: T.Object]!, right: (Map<C>, T)) {
 	let (map, transform) = right
 	if map.mappingType == MappingType.FromJSON {
 		let values = fromJSONDictionaryWithTransform(map.currentValue, transform: transform)
@@ -236,27 +236,27 @@ private func toJSONDictionaryWithTransform<T: TransformType>(input: [String: T.O
 // MARK:- Mappable Objects - <T: Mappable>
 
 /// Object conforming to Mappable
-public func <- <T: Mappable>(inout left: T, right: Map) {
+public func <- <T: Mappable>(inout left: T, right: Map<T.MappingContext>) {
     if right.mappingType == MappingType.FromJSON {
-        FromJSON.object(&left, object: right.currentValue)
+        FromJSON.object(&left, map: right)
     } else {
 		ToJSON.object(left, map: right)
     }
 }
 
 /// Optional Mappable objects
-public func <- <T: Mappable>(inout left: T?, right: Map) {
+public func <- <T: Mappable>(inout left: T?, right: Map<T.MappingContext>) {
     if right.mappingType == MappingType.FromJSON {
-        FromJSON.optionalObject(&left, object: right.currentValue)
+        FromJSON.optionalObject(&left, map: right)
     } else {
 		ToJSON.optionalObject(left, map: right)
     }
 }
 
 /// Implicitly unwrapped optional Mappable objects
-public func <- <T: Mappable>(inout left: T!, right: Map) {
+public func <- <T: Mappable>(inout left: T!, right: Map<T.MappingContext>) {
 	if right.mappingType == MappingType.FromJSON {
-		FromJSON.optionalObject(&left, object: right.currentValue)
+		FromJSON.optionalObject(&left, map: right)
 	} else {
 		ToJSON.optionalObject(left, map: right)
 	}
@@ -265,54 +265,54 @@ public func <- <T: Mappable>(inout left: T!, right: Map) {
 // MARK:- Dictionary of Mappable objects - Dictionary<String, T: Mappable>
 
 /// Dictionary of Mappable objects <String, T: Mappable>
-public func <- <T: Mappable>(inout left: Dictionary<String, T>, right: Map) {
+public func <- <T: Mappable>(inout left: Dictionary<String, T>, right: Map<T.MappingContext>) {
     if right.mappingType == MappingType.FromJSON {
-        FromJSON.objectDictionary(&left, object: right.currentValue)
+        FromJSON.objectDictionary(&left, map: right)
     } else {
         ToJSON.objectDictionary(left, map: right)
     }
 }
 
 /// Optional Dictionary of Mappable object <String, T: Mappable>
-public func <- <T: Mappable>(inout left: Dictionary<String, T>?, right: Map) {
+public func <- <T: Mappable>(inout left: Dictionary<String, T>?, right: Map<T.MappingContext>) {
     if right.mappingType == MappingType.FromJSON {
-        FromJSON.optionalObjectDictionary(&left, object: right.currentValue)
+        FromJSON.optionalObjectDictionary(&left, map: right)
     } else {
         ToJSON.optionalObjectDictionary(left, map: right)
     }
 }
 
 /// Implicitly unwrapped Optional Dictionary of Mappable object <String, T: Mappable>
-public func <- <T: Mappable>(inout left: Dictionary<String, T>!, right: Map) {
+public func <- <T: Mappable>(inout left: Dictionary<String, T>!, right: Map<T.MappingContext>) {
 	if right.mappingType == MappingType.FromJSON {
-		FromJSON.optionalObjectDictionary(&left, object: right.currentValue)
+		FromJSON.optionalObjectDictionary(&left, map: right)
 	} else {
 		ToJSON.optionalObjectDictionary(left, map: right)
 	}
 }
 
 /// Dictionary of Mappable objects <String, T: Mappable>
-public func <- <T: Mappable>(inout left: Dictionary<String, [T]>, right: Map) {
+public func <- <T: Mappable>(inout left: Dictionary<String, [T]>, right: Map<T.MappingContext>) {
 	if right.mappingType == MappingType.FromJSON {
-		FromJSON.objectDictionaryOfArrays(&left, object: right.currentValue)
+		FromJSON.objectDictionaryOfArrays(&left, map: right)
 	} else {
 		ToJSON.objectDictionaryOfArrays(left, map: right)
 	}
 }
 
 /// Optional Dictionary of Mappable object <String, T: Mappable>
-public func <- <T: Mappable>(inout left: Dictionary<String, [T]>?, right: Map) {
+public func <- <T: Mappable>(inout left: Dictionary<String, [T]>?, right: Map<T.MappingContext>) {
 	if right.mappingType == MappingType.FromJSON {
-		FromJSON.optionalObjectDictionaryOfArrays(&left, object: right.currentValue)
+		FromJSON.optionalObjectDictionaryOfArrays(&left, map: right)
 	} else {
 		ToJSON.optionalObjectDictionaryOfArrays(left, map: right)
 	}
 }
 
 /// Implicitly unwrapped Optional Dictionary of Mappable object <String, T: Mappable>
-public func <- <T: Mappable>(inout left: Dictionary<String, [T]>!, right: Map) {
+public func <- <T: Mappable>(inout left: Dictionary<String, [T]>!, right: Map<T.MappingContext>) {
 	if right.mappingType == MappingType.FromJSON {
-		FromJSON.optionalObjectDictionaryOfArrays(&left, object: right.currentValue)
+		FromJSON.optionalObjectDictionaryOfArrays(&left, map: right)
 	} else {
 		ToJSON.optionalObjectDictionaryOfArrays(left, map: right)
 	}
@@ -321,27 +321,27 @@ public func <- <T: Mappable>(inout left: Dictionary<String, [T]>!, right: Map) {
 // MARK:- Array of Mappable objects - Array<T: Mappable>
 
 /// Array of Mappable objects
-public func <- <T: Mappable>(inout left: Array<T>, right: Map) {
+public func <- <T: Mappable>(inout left: Array<T>, right: Map<T.MappingContext>) {
     if right.mappingType == MappingType.FromJSON {
-        FromJSON.objectArray(&left, object: right.currentValue)
+        FromJSON.objectArray(&left, map: right)
     } else {
 		ToJSON.objectArray(left, map: right)
     }
 }
 
 /// Optional array of Mappable objects
-public func <- <T: Mappable>(inout left: Array<T>?, right: Map) {
+public func <- <T: Mappable>(inout left: Array<T>?, right: Map<T.MappingContext>) {
     if right.mappingType == MappingType.FromJSON {
-        FromJSON.optionalObjectArray(&left, object: right.currentValue)
+        FromJSON.optionalObjectArray(&left, map: right)
     } else {
 		ToJSON.optionalObjectArray(left, map: right)
     }
 }
 
 /// Implicitly unwrapped Optional array of Mappable objects
-public func <- <T: Mappable>(inout left: Array<T>!, right: Map) {
+public func <- <T: Mappable>(inout left: Array<T>!, right: Map<T.MappingContext>) {
 	if right.mappingType == MappingType.FromJSON {
-		FromJSON.optionalObjectArray(&left, object: right.currentValue)
+		FromJSON.optionalObjectArray(&left, map: right)
 	} else {
 		ToJSON.optionalObjectArray(left, map: right)
 	}
@@ -350,27 +350,27 @@ public func <- <T: Mappable>(inout left: Array<T>!, right: Map) {
 // MARK:- Array of Array of Mappable objects - Array<Array<T: Mappable>>
 
 /// Array of Array Mappable objects
-public func <- <T: Mappable>(inout left: Array<Array<T>>, right: Map) {
+public func <- <T: Mappable>(inout left: Array<Array<T>>, right: Map<T.MappingContext>) {
 	if right.mappingType == MappingType.FromJSON {
-		FromJSON.twoDimensionalObjectArray(&left, object: right.currentValue)
+		FromJSON.twoDimensionalObjectArray(&left, map: right)
 	} else {
 		ToJSON.twoDimensionalObjectArray(left, map: right)
 	}
 }
 
 /// Optional array of Mappable objects
-public func <- <T: Mappable>(inout left:Array<Array<T>>?, right: Map) {
+public func <- <T: Mappable>(inout left:Array<Array<T>>?, right: Map<T.MappingContext>) {
 	if right.mappingType == MappingType.FromJSON {
-		FromJSON.optionalTwoDimensionalObjectArray(&left, object: right.currentValue)
+		FromJSON.optionalTwoDimensionalObjectArray(&left, map: right)
 	} else {
 		ToJSON.optionalTwoDimensionalObjectArray(left, map: right)
 	}
 }
 
 /// Implicitly unwrapped Optional array of Mappable objects
-public func <- <T: Mappable>(inout left: Array<Array<T>>!, right: Map) {
+public func <- <T: Mappable>(inout left: Array<Array<T>>!, right: Map<T.MappingContext>) {
 	if right.mappingType == MappingType.FromJSON {
-		FromJSON.optionalTwoDimensionalObjectArray(&left, object: right.currentValue)
+		FromJSON.optionalTwoDimensionalObjectArray(&left, map: right)
 	} else {
 		ToJSON.optionalTwoDimensionalObjectArray(left, map: right)
 	}
@@ -379,9 +379,9 @@ public func <- <T: Mappable>(inout left: Array<Array<T>>!, right: Map) {
 // MARK:- Set of Mappable objects - Set<T: Mappable where T: Hashable>
 
 /// Array of Mappable objects
-public func <- <T: Mappable where T: Hashable>(inout left: Set<T>, right: Map) {
+public func <- <T: Mappable where T: Hashable>(inout left: Set<T>, right: Map<T.MappingContext>) {
 	if right.mappingType == MappingType.FromJSON {
-		FromJSON.objectSet(&left, object: right.currentValue)
+		FromJSON.objectSet(&left, map: right)
 	} else {
 		ToJSON.objectSet(left, map: right)
 	}
@@ -389,18 +389,18 @@ public func <- <T: Mappable where T: Hashable>(inout left: Set<T>, right: Map) {
 
 
 /// Optional array of Mappable objects
-public func <- <T: Mappable where T: Hashable>(inout left: Set<T>?, right: Map) {
+public func <- <T: Mappable where T: Hashable>(inout left: Set<T>?, right: Map<T.MappingContext>) {
 	if right.mappingType == MappingType.FromJSON {
-		FromJSON.optionalObjectSet(&left, object: right.currentValue)
+		FromJSON.optionalObjectSet(&left, map: right)
 	} else {
 		ToJSON.optionalObjectSet(left, map: right)
 	}
 }
 
 /// Implicitly unwrapped Optional array of Mappable objects
-public func <- <T: Mappable where T: Hashable>(inout left: Set<T>!, right: Map) {
+public func <- <T: Mappable where T: Hashable>(inout left: Set<T>!, right: Map<T.MappingContext>) {
 	if right.mappingType == MappingType.FromJSON {
-		FromJSON.optionalObjectSet(&left, object: right.currentValue)
+		FromJSON.optionalObjectSet(&left, map: right)
 	} else {
 		ToJSON.optionalObjectSet(left, map: right)
 	}

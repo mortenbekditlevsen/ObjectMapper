@@ -9,8 +9,9 @@
 import Foundation
 
 public protocol Mappable {
-	init?(_ map: Map)
-	mutating func mapping(map: Map)
+	typealias MappingContext
+	static func get(map: Map<MappingContext>) -> Self?
+	mutating func mapping(map: Map<MappingContext>)
 }
 
 public enum MappingType {
@@ -20,8 +21,11 @@ public enum MappingType {
 
 /// The Mapper class provides methods for converting Model objects to JSON and methods for converting JSON to Model objects
 public final class Mapper<N: Mappable> {
-	
-	public init(){}
+
+	let mappingContext: N.MappingContext
+	public init(mappingContext context: N.MappingContext){
+		mappingContext = context
+	}
 	
 	// MARK: Mapping functions that map to an existing object toObject
 	
@@ -45,7 +49,7 @@ public final class Mapper<N: Mappable> {
 	/// Maps a JSON dictionary to an existing object that conforms to Mappable.
 	/// Usefull for those pesky objects that have crappy designated initializers like NSManagedObject
 	public func map(JSONDictionary: [String : AnyObject], var toObject object: N) -> N {
-		let map = Map(mappingType: .FromJSON, JSONDictionary: JSONDictionary)
+		let map = Map<N.MappingContext>(mappingType: .FromJSON, JSONDictionary: JSONDictionary, mappingContext: mappingContext)
 		object.mapping(map)
 		return object
 	}
@@ -86,8 +90,8 @@ public final class Mapper<N: Mappable> {
 
 	/// Maps a JSON dictionary to an object that conforms to Mappable
 	public func map(JSONDictionary: [String : AnyObject]) -> N? {
-		let map = Map(mappingType: .FromJSON, JSONDictionary: JSONDictionary)
-		if var object = N(map) {
+		let map = Map<N.MappingContext>(mappingType: .FromJSON, JSONDictionary: JSONDictionary, mappingContext: mappingContext)
+		if var object = N.get(map) {
 			object.mapping(map)
 			return object
 		}
@@ -244,7 +248,7 @@ extension Mapper {
 	
 	///Maps an object that conforms to Mappable to a JSON dictionary <String : AnyObject>
 	public func toJSON(var object: N) -> [String : AnyObject] {
-		let map = Map(mappingType: .ToJSON, JSONDictionary: [:])
+		let map = Map<N.MappingContext>(mappingType: .ToJSON, JSONDictionary: [:], mappingContext: mappingContext)
 		object.mapping(map)
 		return map.JSONDictionary
 	}

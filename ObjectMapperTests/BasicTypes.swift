@@ -107,15 +107,19 @@ class BasicTypes: Mappable {
 	var dictEnumIntOptional: [String: EnumInt]?
 	var dictEnumIntImplicitlyUnwrapped: [String: EnumInt]!
 
-	init(){
+	required init(){
 		
 	}
 	
-	required init?(_ map: Map){
-
+	static func get(map: Map<Int>) -> Self? {
+		return self.init()
 	}
 	
-	func mapping(map: Map) {
+	func mapping(map: Map<Int>) {
+		if map.mappingContext != 1 {
+			print("waaaaat?!") 
+			return
+		}
 		bool								<- map["bool"]
 		boolOptional						<- map["boolOpt"]
 		boolImplicityUnwrapped				<- map["boolImp"]
@@ -209,15 +213,15 @@ class TestCollectionOfPrimitives : Mappable {
 	var arrayDouble: [Double] = []
 	var arrayFloat: [Float] = []
 	
-	init(){
+	required init(){
 		
 	}
 	
-	required init?(_ map: Map){
-		
+	static func get(map: Map<Int>) -> Self? {
+		return self.init()
 	}
 	
-	func mapping(map: Map) {
+	func mapping(map: Map<Int>) {
 		dictStringString    <- map["dictStringString"]
 		dictStringBool      <- map["dictStringBool"]
 		dictStringInt       <- map["dictStringInt"]
