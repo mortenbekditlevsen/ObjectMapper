@@ -84,7 +84,6 @@ class ObjectMapperTests: XCTestCase {
 	}
 
     func testInstanceParsing() {
-		let sko: Optional<String>
         let username = "John Doe"
         let identifier = "user8723"
         let photoCount = 13
