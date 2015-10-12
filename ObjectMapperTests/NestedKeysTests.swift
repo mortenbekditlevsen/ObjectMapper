@@ -191,8 +191,12 @@ class NestedKeys: Mappable {
 class Object: Mappable, Equatable {
 	var value: Int = Int.min
 	
+	required init() {
+		
+	}
+	
 	static func get(map: Map<Int>) -> Self? {
-		return nil
+		return self.init()
 	}
 	
 	func mapping(map: Map<Int>) {

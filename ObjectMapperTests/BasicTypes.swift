@@ -116,10 +116,6 @@ class BasicTypes: Mappable {
 	}
 	
 	func mapping(map: Map<Int>) {
-		if map.mappingContext != 1 {
-			print("waaaaat?!") 
-			return
-		}
 		bool								<- map["bool"]
 		boolOptional						<- map["boolOpt"]
 		boolImplicityUnwrapped				<- map["boolImp"]
