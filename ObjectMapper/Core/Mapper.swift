@@ -23,6 +23,7 @@ public enum MappingType {
 public final class Mapper<N: Mappable> {
 
 	let mappingContext: N.MappingContext
+    
 	public init(mappingContext context: N.MappingContext){
 		mappingContext = context
 	}

@@ -165,6 +165,42 @@ public func <- <T: TransformType, C>(inout left: [T.Object]!, right: (Map<C>, T)
 	}
 }
 
+/// Set of Basic type with Transform
+public func <- <T: TransformType, C>(inout left: Set<T.Object>, right: (Map<C>, T)) {
+	let (map, transform) = right
+	if map.mappingType == MappingType.FromJSON {
+		let values = Set(fromJSONArrayWithTransform(map.currentValue, transform: transform))
+		FromJSON.basicType(&left, object: values)
+	} else {
+		let values = toJSONArrayWithTransform(Array(left), transform: transform)
+		ToJSON.optionalBasicType(values, map: map)
+	}
+}
+
+/// Optional array of Basic type with Transform
+public func <- <T: TransformType, C>(inout left: Set<T.Object>?, right: (Map<C>, T)) {
+	let (map, transform) = right
+	if map.mappingType == MappingType.FromJSON {
+		let values = Set(fromJSONArrayWithTransform(map.currentValue, transform: transform))
+		FromJSON.optionalBasicType(&left, object: values)
+	} else {
+		let values = toJSONArrayWithTransform(left != nil ? Array(left!) : nil, transform: transform)
+		ToJSON.optionalBasicType(values, map: map)
+	}
+}
+
+/// Implicitly unwrapped optional array of Basic type with Transform
+public func <- <T: TransformType, C>(inout left: Set<T.Object>!, right: (Map<C>, T)) {
+	let (map, transform) = right
+	if map.mappingType == MappingType.FromJSON {
+		let values = Set(fromJSONArrayWithTransform(map.currentValue, transform: transform))
+		FromJSON.optionalBasicType(&left, object: values)
+	} else {
+		let values = toJSONArrayWithTransform(Array(left), transform: transform)
+		ToJSON.optionalBasicType(values, map: map)
+	}
+}
+
 /// Dictionary of Basic type with Transform
 public func <- <T: TransformType, C>(inout left: [String: T.Object], right: (Map<C>, T)) {
 	let (map, transform) = right
